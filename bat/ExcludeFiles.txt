@@ -1,0 +1,4 @@
+.as
+.fla
+.ipa
+.gitkeep

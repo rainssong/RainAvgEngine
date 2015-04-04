@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<application xmlns="http://ns.adobe.com/air/application/15.0">
+  <id>me.rainssong.RainAvgEngine</id>
+  <versionNumber>1.0</versionNumber>
+  <supportedProfiles>mobileDevice extendedDesktop</supportedProfiles>
+  <filename>RainAvgEngine</filename>
+  <name>
+		<text xml:lang="en">RainAvgEngine</text>
+		<text xml:lang="zh_Hans">RainAvgEngine</text>
+		<text xml:lang="zh_Hant">RainAvgEngine</text>
+  </name>
+  <copyright>rainssong</copyright>
+  
+  <android>
+    <manifestAdditions><![CDATA[
+    	<manifest android:installLocation="auto">
+		<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch" />
+		
+	    <!--See the Adobe AIR documentation for more information about setting Google Android permissions-->
+	    <!--Removing the permission android.permission.INTERNET will have the side effect of preventing you from debugging your application on your device-->
+	    <uses-permission android:name="android.permission.INTERNET"/>
+	    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	    <!--The ACCESS_NETWORK_STATE and ACCESS_WIFI_STATE permissions should be toggled together in order to use AIR's NetworkInfo APIs-->
+	    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+	    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+		<!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+
+	    <!--The DISABLE_KEYGUARD and WAKE_LOCK permissions should be toggled together in order to access AIR's SystemIdleMode APIs-->
+	    <!--
+	    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+	    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+	    <uses-permission android:name="android.permission.CAMERA"/>
+	    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+	    -->
+		</manifest>
+		]]>
+	</manifestAdditions>
+  </android>
+  <iPhone>
+    <InfoAdditions><![CDATA[
+    	<key>UIStatusBarStyle</key>
+		<string>UIStatusBarStyleBlackOpaque</string>
+		<key>UIRequiresPersistentWiFi</key>
+		<string>NO</string>
+		<key>UIPrerenderedIcon</key>
+		<false />
+		<key>UIApplicationExitsOnSuspend</key>
+		<false />
+		<key>MinimumOSVersion</key>
+		<string>6.0</string>
+		<key>UIDeviceFamily</key>
+		<array>
+			<!-- iPhone support -->
+			<string>1</string>
+			<!-- iPad support -->
+			<string>2</string>
+		</array>
+		]]>
+	</InfoAdditions>
+    <requestedDisplayResolution>high</requestedDisplayResolution>
+  </iPhone>
+  <initialWindow>
+	<title>RainAvgEngine</title>
+    <content>RainAvgEngine.swf</content>
+    <visible>true</visible>
+    <fullScreen>true</fullScreen>
+	<renderMode>gpu</renderMode><!--cpu,gpu,direct-->
+	<!--<depthAndStencil>false</depthAndStencil>-->
+    <systemChrome>standard</systemChrome><!--standard,none-->
+	<transparent>false</transparent>
+    <aspectRatio>landscape</aspectRatio><!--landscape,portrait,any-->
+    <autoOrients>true</autoOrients>
+    <!-- <width>640</width> -->
+    <!-- <height>960</height> -->
+  </initialWindow>
+  <icon>
+		<!--iphone ios6-->
+		<image57x57>icons/Icon-57.png</image57x57>
+		<image114x114>icons/Icon-57@2x.png</image114x114>
+		<!--iphone ios7-->
+		<image120x120>icons/Icon-120.png</image120x120>
+
+		<!--ipad ios6-->
+		<image72x72>icons/Icon-72.png</image72x72>
+		<image144x144>icons/Icon-72@2x.png</image144x144>
+		<!--ipad ios7-->
+		<image76x76>icons/Icon-76.png</image76x76>
+		<image152x152>icons/Icon-76@2x.png</image152x152>
+
+		<!--setting recommanded-->
+		<!--<image29x29>icons/Icon-29.png</image29x29>
+		<image58x58>icons/Icon-29@2x.png</image58x58>-->
+
+		<!--spotlight ios6 recommanded-->
+		<!--<image50x50>icons/Icon-50.png</image50x50>
+		<image100x100>icons/Icon-50@2x.png</image100x100>-->
+
+		<!--spotlight ios7 recommanded-->
+		<!--<image40x40>icons/Icon-40.png</image40x40>
+		<image80x80>icons/Icon-40@2x.png</image80x80>-->
+  </icon>
+  <extensions>
+    <!-- <extensionID></extensionID> -->
+  </extensions>
+  <!-- 
+	AIR options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	
+	AIR mobile options:
+	http://help.adobe.com/en_US/air/build/WSfffb011ac560372f-5d0f4f25128cc9cd0cb-7ffe.html
+	
+	Android manifest documentation:
+	http://developer.android.com/guide/topics/manifest/manifest-intro.html
+	-->
+</application>
