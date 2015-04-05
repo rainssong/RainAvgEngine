@@ -304,9 +304,11 @@ package me.rainssong.RainAvgEngine.view
 		
 		public function save():void
 		{
+			_statusData["musicTime"] = SoundManager.getInstance().getSoundPosition(_statusData["musicUrl"]);
 			SingletonManager.sharedObject.data.count = Singleton.scriptManager.count;
 			SingletonManager.sharedObject.data.xmlName = Singleton.scriptManager.xmlName;
 			SingletonManager.sharedObject.data.statusData = ObjectCore.clone(_statusData);
+			SingletonManager.sharedObject.data.userValues = ObjectCore.clone(_userValues);
 			SingletonManager.sharedObject.data.userValues = ObjectCore.clone(_userValues);
 			SingletonManager.sharedObject.flush();
 			
@@ -323,8 +325,8 @@ package me.rainssong.RainAvgEngine.view
 			}
 			_isLoading = true;
 			
-			Singleton.scriptManager.count = SingletonManager.sharedObject.data.count || 0;
-			Singleton.scriptManager.xmlName = SingletonManager.sharedObject.data.xmlName || "";
+			//Singleton.scriptManager.count = SingletonManager.sharedObject.data.count || 0;
+			//Singleton.scriptManager.xmlName = SingletonManager.sharedObject.data.xmlName || "";
 			
 			fadeOutIn();
 			
@@ -337,6 +339,7 @@ package me.rainssong.RainAvgEngine.view
 			hidePic();
 			hideTalk();
 			hideChar();
+			stopAllSounds();
 			
 			_statusData = ObjectCore.clone(SingletonManager.sharedObject.data.statusData);
 			_userValues = ObjectCore.clone(SingletonManager.sharedObject.data.userValues);
@@ -350,9 +353,12 @@ package me.rainssong.RainAvgEngine.view
 			if (_statusData.talkVisible)
 				talk(_statusData["talkName"], _statusData["talkContent"] , _statusData["talkClickNext"]);
 			if (_statusData.musicPlay)
-				playMusic(_statusData.musicUrl);
+				playMusic(_statusData.musicUrl,1,_statusData.musicTime);
 				
-			Singleton.scriptManager.runScript(Singleton.scriptManager.count);
+			var count:int= SingletonManager.sharedObject.data.count || 0;
+			var xmlName:String = SingletonManager.sharedObject.data.xmlName || "";
+				
+			Singleton.scriptManager.runScript(count,xmlName);
 		}
 		
 		////////////
@@ -416,11 +422,11 @@ package me.rainssong.RainAvgEngine.view
 		//声音
 		////////////
 		
-		public function playMusic(url:String = ""):void
+		public function playMusic(url:String = "",volume:Number=1,startTime:Number=0):void
 		{
-			_statusData["musicUrl"] = name;
+			_statusData["musicUrl"] = url;
 			_statusData["musicPlay"] = true;
-			SoundManager.getInstance().playSound(url, 1, 0, 9999);
+			SoundManager.getInstance().playSound(url, volume, startTime, 9999);
 		}
 		
 		public function playSound(url:String = ""):void
