@@ -1,29 +1,28 @@
 <?xmlversion="1.0"encoding="utf-8"?>
 <data>
 	<motion>
-		talk("","感谢你打开RainAvgEngine！");
+		talk("","感谢你浏览RainAvgEngine！");
 		changeBg("assets/Background/scene01.jpg");
 		playMusic("assets/BGM/music01.mp3");
 	</motion>
 	<motion>talk("?","RainAvgEngine是由rainssong制作的一个开源简易跨平台AVG引擎。你可以用它来制作手机或PC游戏。也可以用于学习之用。");</motion>
 	<motion>talk("?","到这里玩我的其他游戏:rainsgameworld.sinaapp.com\r到这里围观蛇精病作者:weibo.com/rainssong");</motion>
 	<motion>talk("美沙","hi！接下来我来介绍一下RainAvgEngine的功能~");showChar("assets/Half/char01.png");</motion>
-	<motion>talk("美沙","这是选项功能。");</motion>
-	<motion>showOptions(["第一项","第二项","第三项"]);</motion>
-	<motion>
-		runScript(lastSelect);
-		talk("美沙","你选了"+lastSelect+"。");</motion>
-	<motion key="第一项">talk("美沙","现在进入第一分支。");</motion>
+	<motion>talk("美沙","这是选项功能。选一个数字吧！");</motion>
+	<motion>showOptions(["1","2","3"]);</motion>
+	<motion>runScript("分支"+lastSelect);</motion>
+	<motion key="分支1">talk("美沙","现在进入第一分支。");</motion>
 	<motion>runScript("分支结束");</motion>
-	<motion key="第二项">talk("美沙","现在进入第二分支。");</motion>
+	<motion key="分支2">talk("美沙","现在进入第二分支。");</motion>
 	<motion>runScript("分支结束");</motion>
-	<motion key="第三项">talk("美沙","现在进入第三分支。");</motion>
+	<motion key="分支3">talk("美沙","现在进入第三分支。");</motion>
 	<motion>runScript("分支结束");</motion>
 	<motion key="分支结束">talk("美沙","还有震屏~");startShake();</motion>
 	<motion>talk("美沙","然后淡入淡出。");</motion>
 	<motion>fadeOut();</motion>
 	<motion>fadeIn();hideChar();hideTalk();changeBg("assets/Background/event01.jpg");</motion>
 	<motion>talk("美沙","右上角是SL功能，自己试试吧。");</motion>
+	<motion>talk("美沙","引擎提供了变量操作，比如setValue(\"love\",10)，那么执行getValue(\"love\")就会得到10。");</motion>
 	<motion>talk("美沙","另外可以显示图片哦。");showPic("assets/Pic/pic01.png");</motion>
 	<motion>talk("美沙","入口脚本在assets/Main.xml，大家可以自行参考。");</motion>
 	<motion>talk("美沙","本演示素材来自《同级生2》。");</motion>

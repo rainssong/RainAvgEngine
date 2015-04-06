@@ -162,7 +162,6 @@ package me.rainssong.RainAvgEngine.view
 			soundBtn.top = 10;
 			soundBtn.right = 20 + saveBtn.width;
 			soundBtn.text = "L";
-			//soundBtn.toggle = true;
 			soundBtn.addEventListener(MouseEvent.CLICK, onLoadBtn);
 			
 			Singleton.scriptManager.scriptDic["assets/Main.xml"] = SingletonManager.bulkLoader.getXML("assets/Main.xml");
@@ -170,10 +169,6 @@ package me.rainssong.RainAvgEngine.view
 			
 			bg.addEventListener(MouseEvent.CLICK, onNext);
 			dialogText.addEventListener(MouseEvent.CLICK, onNext);
-			
-			//D.importClass(PlayView);
-			//Singleton.scriptManager.thisObj = this;
-			//Singleton.scriptManager.context = null;
 			
 			D.importFunction("talk", talk);
 			D.importFunction("changeBg", changeBg);
@@ -253,12 +248,9 @@ package me.rainssong.RainAvgEngine.view
 			_statusData["talkContent"] = content;
 			_statusData["talkClickNext"] = clickNext;
 			_statusData["talkVisible"] = true;
-			//addChild(dialogText);
 			dialogText.visible = true;
-			//addChild(nameLable);
 			nameLable.visible = charName.length > 0;
 			nameLable.text = charName;
-			//dialogText.text = content;
 			_clickNext = clickNext;
 			
 			var anim:TextFieldAnimation = TextFieldCore.getAnimation(dialogText);
@@ -270,9 +262,6 @@ package me.rainssong.RainAvgEngine.view
 			_statusData["talkVisible"] = false;
 			dialogText.visible = false;
 			nameLable.visible = false;
-			//_clickNext = false;
-			//nameLable.remove();
-			//nameLable.remove();
 		}
 		
 		public function showOptions(opts:Array.<String> = null, clickNext:Boolean = false):void
@@ -324,9 +313,6 @@ package me.rainssong.RainAvgEngine.view
 				return;
 			}
 			_isLoading = true;
-			
-			//Singleton.scriptManager.count = SingletonManager.sharedObject.data.count || 0;
-			//Singleton.scriptManager.xmlName = SingletonManager.sharedObject.data.xmlName || "";
 			
 			fadeOutIn();
 			
