@@ -217,4 +217,6 @@ pip-log.txt
 #################
 ## FlashDevelop
 #################
+bin
+bin-release
 cert
