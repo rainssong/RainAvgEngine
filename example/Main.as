@@ -1,17 +1,11 @@
 package  
 {
-	import flash.desktop.NativeApplication;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
-	import flash.events.Event;
 	import me.rainssong.RainAvgEngine.GameView;
-	import me.rainssong.RainAvgEngine.TestView;
-	import me.rainssong.utils.Snapshot;
 	import me.rainui.RainTheme;
 	import me.rainui.RainUI;
-	import r1.deval.D;
-	
 	
 	/**
 	 * @date 2015/2/8 3:57

@@ -27,6 +27,7 @@ package me.rainssong.RainAvgEngine.view
 	import me.rainui.components.Label;
 	import me.rainui.components.Page;
 	import me.rainui.components.TextArea;
+	import me.rainui.events.RainUIEvent;
 	import me.rainui.RainTheme;
 	import me.rainui.RainUI;
 	import r1.deval.D;
@@ -51,15 +52,15 @@ package me.rainssong.RainAvgEngine.view
 		public var optionsPanel:OptionsPanel = new OptionsPanel();
 		public var fadeView:FadeView = new FadeView();
 		public var shakeManager:ShakeManager = new ShakeManager();
-		public var saveBtn:Button = new Button();
+		public var pauseBtn:Button = new Button();
 		public var saveTipLabel:Label = new Label();
-		public var soundBtn:Button = new Button();
+		//public var soundBtn:Button = new Button();
+		public var pauseMenuView:PauseMenuView = new PauseMenuView();
 		
 		private var _statusData:Object = new Object();
 		private var _userValues:Object = new Object();
 		private var _isLoading:Boolean = false;
 		private var _isFading:Boolean = false;
-		;
 		
 		//public var musicPlayer:SoundPlayer = new SoundPlayer();
 		//public var soundPlayer:SoundPlayer = new SoundPlayer();
@@ -79,9 +80,10 @@ package me.rainssong.RainAvgEngine.view
 			addChild(nameLable);
 			addChild(fadeView);
 			addChild(picView);
-			addChild(saveBtn);
+			addChild(pauseBtn);
 			addChild(saveTipLabel);
-			addChild(soundBtn);
+			addChild(optionsPanel);
+			addChild(pauseMenuView);
 			
 			shakeManager.target = this;
 			
@@ -141,28 +143,31 @@ package me.rainssong.RainAvgEngine.view
 			picView.mouseChildren = false;
 			picView.mouseEnabled = false;
 			
-			saveBtn.width = RainUI.stageHeight * 0.08;
-			saveBtn.height = RainUI.stageHeight * 0.08;
-			saveBtn.right = 10;
-			saveBtn.top = 10;
-			saveBtn.text = "S";
-			saveBtn.addEventListener(MouseEvent.CLICK, onSaveBtn);
+			pauseBtn.width = RainUI.stageHeight * 0.16+10;
+			pauseBtn.height = RainUI.stageHeight * 0.08;
+			pauseBtn.right = 10;
+			pauseBtn.top = 10;
+			pauseBtn.text = "菜单";
+			pauseBtn.addEventListener(MouseEvent.CLICK, onPauseBtn);
 			
-			saveTipLabel.width=RainUI.stageHeight * 0.16+10;
-			saveTipLabel.height=RainUI.stageHeight * 0.08;
-			saveTipLabel.text = "Saved!";
+			pauseMenuView.visible = false;
+			pauseMenuView.addEventListener(RainUIEvent.SELECT, onPauseMenuView);
+			
+			saveTipLabel.width = RainUI.stageHeight * 0.16 + 10;
+			saveTipLabel.height = RainUI.stageHeight * 0.08;
+			saveTipLabel.text = "已保存!";
 			saveTipLabel.alpha = 0;
 			saveTipLabel.left = 10;
 			saveTipLabel.top = 10;
 			saveTipLabel.color = RainTheme.WHITE;
-			saveTipLabel.bgSkin=RainUI.theme.getSkin("darkBlueRoundFlatSkin")
+			saveTipLabel.bgSkin = RainUI.theme.getSkin("darkBlueRoundFlatSkin")
 			
-			soundBtn.width = RainUI.stageHeight * 0.08;
-			soundBtn.height = RainUI.stageHeight * 0.08;
-			soundBtn.top = 10;
-			soundBtn.right = 20 + saveBtn.width;
-			soundBtn.text = "L";
-			soundBtn.addEventListener(MouseEvent.CLICK, onLoadBtn);
+			//soundBtn.width = RainUI.stageHeight * 0.08;
+			//soundBtn.height = RainUI.stageHeight * 0.08;
+			//soundBtn.top = 10;
+			//soundBtn.right = 20 + saveBtn.width;
+			//soundBtn.text = "L";
+			//soundBtn.addEventListener(MouseEvent.CLICK, onLoadBtn);
 			
 			Singleton.scriptManager.scriptDic["assets/Main.xml"] = SingletonManager.bulkLoader.getXML("assets/Main.xml");
 			fadeView.addEventListener("fadeComplete", onFadeComplete);
@@ -191,6 +196,46 @@ package me.rainssong.RainAvgEngine.view
 			D.importFunction("gameOver", gameOver);
 		}
 		
+		private function onPauseMenuView(e:GameEvent):void
+		{
+			switch (e.data.text)
+			{
+				case "继续": 
+					hidePauseMenu();
+					break;
+				case "保存": 
+					hidePauseMenu();
+					save();
+					break;
+				case "读取": 
+					hidePauseMenu();
+					load();
+					break;
+				case "退出": 
+					hidePauseMenu();
+					gameOver();
+					break;
+				default: 
+			}
+		}
+		
+		private function onPauseBtn(e:MouseEvent):void
+		{
+			showPauseMenu();
+		}
+		
+		public function hidePauseMenu():void
+		{
+			pauseMenuView.visible = false;
+			pauseMenuView.disabled = true;
+		}
+		
+		public function showPauseMenu():void
+		{
+			pauseMenuView.visible = true;
+			pauseMenuView.disabled = false;
+		}
+		
 		private function onLoadBtn(e:MouseEvent):void
 		{
 			load();
@@ -212,6 +257,7 @@ package me.rainssong.RainAvgEngine.view
 		
 		private function onSelect(e:GameEvent):void
 		{
+			hideOptions();
 			_lastSelect = e.data.text as String;
 			Singleton.scriptManager.context = {"lastSelect": lastSelect};
 			Singleton.scriptManager.runScript();
@@ -219,7 +265,8 @@ package me.rainssong.RainAvgEngine.view
 		
 		private function onNext(e:MouseEvent):void
 		{
-			if (_isFading) return;
+			if (_isFading)
+				return;
 			
 			var anim:TextFieldAnimation = TextFieldCore.getAnimation(dialogText);
 			if (anim.isFinished)
@@ -266,7 +313,8 @@ package me.rainssong.RainAvgEngine.view
 		
 		public function showOptions(opts:Array.<String> = null, clickNext:Boolean = false):void
 		{
-			addChild(optionsPanel);
+			optionsPanel.visible = true;
+			optionsPanel.disabled = false;
 			optionsPanel.showOptions(opts);
 			_clickNext = clickNext;
 			optionsPanel.resize();
@@ -274,7 +322,8 @@ package me.rainssong.RainAvgEngine.view
 		
 		public function hideOptions():void
 		{
-			optionsPanel.remove();
+			optionsPanel.visible = false;
+			optionsPanel.disabled = true;
 		}
 		
 		/////////
@@ -283,7 +332,7 @@ package me.rainssong.RainAvgEngine.view
 		public function gameOver():void
 		{
 			stopAllSounds();
-			AnimationCore.switchView(this, new MenuView);
+			AnimationCore.switchView(this, new HomeView);
 		}
 		
 		public function start():void
@@ -301,13 +350,13 @@ package me.rainssong.RainAvgEngine.view
 			SingletonManager.sharedObject.data.userValues = ObjectCore.clone(_userValues);
 			SingletonManager.sharedObject.flush();
 			
-			TweenLite.to(saveTipLabel, 0.5, { alpha:1 } );
-			TweenLite.to(saveTipLabel, 0.5, { alpha:0,delay:1 } );
+			TweenLite.to(saveTipLabel, 0.5, {alpha: 1});
+			TweenLite.to(saveTipLabel, 0.5, {alpha: 0, delay: 1});
 		}
 		
 		public function load():void
 		{
-			if (SingletonManager.sharedObject.data.count==null)
+			if (SingletonManager.sharedObject.data.count == null)
 			{
 				start();
 				return;
@@ -316,7 +365,7 @@ package me.rainssong.RainAvgEngine.view
 			
 			fadeOutIn();
 			
-			setTimeout(loadScene,500)
+			setTimeout(loadScene, 500)
 		}
 		
 		private function loadScene():void
@@ -337,14 +386,14 @@ package me.rainssong.RainAvgEngine.view
 			if (_statusData.charVisible)
 				showChar(_statusData.charUrl);
 			if (_statusData.talkVisible)
-				talk(_statusData["talkName"], _statusData["talkContent"] , _statusData["talkClickNext"]);
+				talk(_statusData["talkName"], _statusData["talkContent"], _statusData["talkClickNext"]);
 			if (_statusData.musicPlay)
-				playMusic(_statusData.musicUrl,1,_statusData.musicTime);
-				
-			var count:int= SingletonManager.sharedObject.data.count || 0;
+				playMusic(_statusData.musicUrl, 1, _statusData.musicTime);
+			
+			var count:int = SingletonManager.sharedObject.data.count || 0;
 			var xmlName:String = SingletonManager.sharedObject.data.xmlName || "";
-				
-			Singleton.scriptManager.runScript(count,xmlName);
+			
+			Singleton.scriptManager.runScript(count, xmlName);
 		}
 		
 		////////////
@@ -408,7 +457,7 @@ package me.rainssong.RainAvgEngine.view
 		//声音
 		////////////
 		
-		public function playMusic(url:String = "",volume:Number=1,startTime:Number=0):void
+		public function playMusic(url:String = "", volume:Number = 1, startTime:Number = 0):void
 		{
 			_statusData["musicUrl"] = url;
 			_statusData["musicPlay"] = true;

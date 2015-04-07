@@ -19,13 +19,13 @@ package me.rainssong.RainAvgEngine.view
 	 * @homepage http://rainsgameworld.sinaapp.com
 	 * @weibo http://www.weibo.com/rainssong
 	 */
-	public class MenuView extends Page
+	public class HomeView extends Page
 	{
 		//public var title:Label = new Label();
 		public var startBtn:Button = new Button("开始游戏");
 		public var loadBtn:Button = new Button("继续游戏");
 		
-		public function MenuView() 
+		public function HomeView() 
 		{
 			super();
 		}

@@ -9,7 +9,7 @@ package  me.rainssong.RainAvgEngine
 	import me.rainssong.manager.KeyboardManager;
 	import me.rainssong.manager.SingletonManager;
 	import me.rainssong.RainAvgEngine.view.LoadingView;
-	import me.rainssong.RainAvgEngine.view.MenuView;
+	import me.rainssong.RainAvgEngine.view.HomeView;
 	import me.rainssong.tween.AnimationCore;
 	import me.rainssong.utils.Snapshot;
 	import me.rainui.components.Page;
@@ -71,7 +71,7 @@ package  me.rainssong.RainAvgEngine
 		
 		private function onComplete(e:BulkProgressEvent):void 
 		{
-			AnimationCore.switchView(loadingView, new MenuView);
+			AnimationCore.switchView(loadingView, new HomeView);
 		}
 	}
 	

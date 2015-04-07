@@ -48,7 +48,8 @@ package me.rainssong.RainAvgEngine.view
 		private function onClick(e:MouseEvent):void 
 		{
 			var btn:Button = e.target as Button;
-			this.remove();
+			//this.visible = false;
+			//this.disabled = true;
 			dispatchEvent(new GameEvent(Event.SELECT, { text:btn.text, index:btns.indexOf(btn) } ));
 		}
 		
