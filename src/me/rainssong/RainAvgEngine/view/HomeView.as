@@ -6,6 +6,7 @@ package me.rainssong.RainAvgEngine.view
 	import me.rainssong.application.AirManager;
 	import me.rainssong.manager.SingletonManager;
 	import me.rainssong.tween.AnimationCore;
+	import me.rainssong.utils.ScaleMode;
 	import me.rainui.components.Button;
 	import me.rainui.components.Container;
 	import me.rainui.components.DisplayResizer;
@@ -48,11 +49,12 @@ package me.rainssong.RainAvgEngine.view
 			
 			bgSkin = new DisplayResizer(SingletonManager.bulkLoader.getBitmap("assets/MenuBg.jpg"));
 			SoundManager.getInstance().playSound("assets/MenuBgm.mp3");
-			
-			callLater(resize);
+			DisplayResizer(bgSkin).contentScaleMode = ScaleMode.FULL_FILL;
 			
 			startBtn.addEventListener(MouseEvent.CLICK, onStartBtn);
 			loadBtn.addEventListener(MouseEvent.CLICK, onLoadBtn);
+			
+			//callLater(resize);
 		}
 		
 		private function onLoadBtn(e:MouseEvent):void 

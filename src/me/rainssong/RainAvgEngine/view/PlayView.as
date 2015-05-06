@@ -124,9 +124,9 @@ package me.rainssong.RainAvgEngine.view
 			nameLable.percentHeight = 0.08;
 			nameLable.color = RainTheme.WHITE;
 			nameLable.align = Align.CENTER;
-			//nameLable.changeContent("bgSkin", RainUI.theme.getSkin("darkBlueRoundFlatSkin"));
-			nameLable.bgSkin = nameLable.addChildAt(RainUI.theme.getSkin("darkBlueRoundFlatSkin"), 0);
+			nameLable.bgSkin = RainUI.getSkin("darkBlueRoundFlatSkin");
 			nameLable.alpha = 0.8;
+			//nameLable.borderVisible = true;
 			//nameLable.redraw();
 			
 			optionsPanel.centerX = 0;
@@ -161,13 +161,6 @@ package me.rainssong.RainAvgEngine.view
 			saveTipLabel.top = 10;
 			saveTipLabel.color = RainTheme.WHITE;
 			saveTipLabel.bgSkin = RainUI.theme.getSkin("darkBlueRoundFlatSkin")
-			
-			//soundBtn.width = RainUI.stageHeight * 0.08;
-			//soundBtn.height = RainUI.stageHeight * 0.08;
-			//soundBtn.top = 10;
-			//soundBtn.right = 20 + saveBtn.width;
-			//soundBtn.text = "L";
-			//soundBtn.addEventListener(MouseEvent.CLICK, onLoadBtn);
 			
 			Singleton.scriptManager.scriptDic["assets/Main.xml"] = SingletonManager.bulkLoader.getXML("assets/Main.xml");
 			fadeView.addEventListener("fadeComplete", onFadeComplete);
@@ -297,7 +290,8 @@ package me.rainssong.RainAvgEngine.view
 			_statusData["talkVisible"] = true;
 			dialogText.visible = true;
 			nameLable.visible = charName.length > 0;
-			nameLable.text = charName;
+			if( charName.length > 0)
+				nameLable.text = charName;
 			_clickNext = clickNext;
 			
 			var anim:TextFieldAnimation = TextFieldCore.getAnimation(dialogText);
@@ -394,6 +388,8 @@ package me.rainssong.RainAvgEngine.view
 			var xmlName:String = SingletonManager.sharedObject.data.xmlName || "";
 			
 			Singleton.scriptManager.runScript(count, xmlName);
+			
+			dispatchEvent(new GameEvent(GameEvent.LOAD, null, true));
 		}
 		
 		////////////
@@ -481,14 +477,15 @@ package me.rainssong.RainAvgEngine.view
 			SoundManager.getInstance().stopAllSounds();
 		}
 		
-		override public function resize():void
+		override public function calcSize():void
 		{
-			super.resize();
+			super.calcSize();
 			
-			dialogText.resize();
-			nameLable.resize();
+			dialogText.calcSize();
+			nameLable.calcSize();
 			nameLable.y = dialogText.y - nameLable.height;
-			charView.resize();
+			
+			charView.calcSize();
 			charView.y = dialogText.y - charView.height;
 		}
 		
