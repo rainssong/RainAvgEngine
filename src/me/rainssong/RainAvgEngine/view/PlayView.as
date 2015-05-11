@@ -326,7 +326,7 @@ package me.rainssong.RainAvgEngine.view
 		public function gameOver():void
 		{
 			stopAllSounds();
-			AnimationCore.switchView(this, new HomeView);
+			SingletonManager.eventBus.dispatchEvent(new GameEvent(GameEvent.GAME_OVER));
 		}
 		
 		public function start():void

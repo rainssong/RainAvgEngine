@@ -1,15 +1,19 @@
 package  me.rainssong.RainAvgEngine
 {
 	//import flash.desktop.NativeApplication;
+	import br.com.stimuli.loading.BulkLoader;
 	import br.com.stimuli.loading.BulkProgressEvent;
 	import com.reintroducing.sound.SoundManager;
 	import flash.events.Event;
 	import flash.filesystem.File;
+	import me.rainssong.events.GameEvent;
 	import me.rainssong.filesystem.FileCore;
 	import me.rainssong.manager.KeyboardManager;
 	import me.rainssong.manager.SingletonManager;
+	import me.rainssong.RainAvgEngine.manager.AssetManager;
 	import me.rainssong.RainAvgEngine.view.LoadingView;
 	import me.rainssong.RainAvgEngine.view.HomeView;
+	import me.rainssong.RainAvgEngine.view.PlayView;
 	import me.rainssong.tween.AnimationCore;
 	import me.rainssong.utils.Snapshot;
 	import me.rainui.components.Page;
@@ -23,6 +27,9 @@ package  me.rainssong.RainAvgEngine
 	public class GameView extends Page
 	{
 		public var loadingView:LoadingView;
+		public var homeView:HomeView;
+		public var playView:PlayView;
+		public var assetManager:AssetManager
 		public function GameView():void 
 		{
 			
@@ -43,35 +50,39 @@ package  me.rainssong.RainAvgEngine
 		override protected function initialize():void 
 		{
 			super.initialize();
-			var assetsFile:File= File.applicationDirectory.resolvePath("assets/");
-			var files:Array.<File> = FileCore.getAllFiles(assetsFile);
-			for (var i:int = 0; i < files.length; i++) 
-			{
-				if (!files[i].isDirectory)
-				{
-					var f1:File = files[i];
-					var f2:File = File.applicationDirectory;
-					if (f1.extension == "mp3"){
-						SoundManager.getInstance().addExternalSound(f2.getRelativePath(f1), f2.getRelativePath(f1));
-					}
-					else
-						SingletonManager.bulkLoader.add(f2.getRelativePath(f1));
-				}
-			}
+			assetManager = new AssetManager();
+			assetManager.addEventListener(BulkProgressEvent.COMPLETE, onLoadComplete)
+			assetManager.startLoad();
 			
-			SingletonManager.bulkLoader.addEventListener(BulkProgressEvent.PROGRESS, onProgress);
-			SingletonManager.bulkLoader.addEventListener(BulkProgressEvent.COMPLETE, onComplete);
-			SingletonManager.bulkLoader.start(1);
+			SingletonManager.eventBus.addEventListener(GameEvent.GAME_START, onHomeStart);
+			SingletonManager.eventBus.addEventListener(GameEvent.LOAD, onHomeLoad);
+			SingletonManager.eventBus.addEventListener(GameEvent.GAME_OVER, onGameOver);
 		}
 		
-		private function onProgress(e:BulkProgressEvent):void 
+		private function onGameOver(e:GameEvent):void 
 		{
-			//powerTrace(e);
+			AnimationCore.switchView(playView, homeView = new HomeView(), "move", { direction:"down" } );
 		}
 		
-		private function onComplete(e:BulkProgressEvent):void 
+		private function onHomeLoad(e:GameEvent):void 
 		{
-			AnimationCore.switchView(loadingView, new HomeView);
+			playView = new PlayView();
+			playView.load();
+			AnimationCore.switchView(homeView, playView, "move", { delay:0.5 } );
+		}
+		
+		private function onHomeStart(e:GameEvent):void 
+		{
+			playView = new PlayView();
+			playView.start();
+			AnimationCore.switchView(homeView, playView);
+		}
+		
+		private function onLoadComplete(e:BulkProgressEvent):void 
+		{
+			AnimationCore.switchView(loadingView, homeView = new HomeView(), "move", { direction:"up" } );
+			loadingView.destroy();
+			loadingView = null;
 		}
 	}
 	

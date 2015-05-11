@@ -23,7 +23,7 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
 			RainUI.init(stage,new RainTheme);
-			addChild(new GameView);
+			stage.addChild(new GameView);
 		}
 		
 	}

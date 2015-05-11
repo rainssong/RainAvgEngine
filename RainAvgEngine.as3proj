@@ -79,7 +79,8 @@
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>bat\UpdateResource.bat</preBuildCommand>
+  <preBuildCommand>bat\UpdateResource.bat
+xcopy example bin /d /s /i /q /y /exclude:bat\ExcludeFiles.txt</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->

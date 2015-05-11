@@ -4,6 +4,7 @@ package me.rainssong.RainAvgEngine.view
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import me.rainssong.application.AirManager;
+	import me.rainssong.events.GameEvent;
 	import me.rainssong.manager.SingletonManager;
 	import me.rainssong.tween.AnimationCore;
 	import me.rainssong.utils.ScaleMode;
@@ -22,7 +23,6 @@ package me.rainssong.RainAvgEngine.view
 	 */
 	public class HomeView extends Page
 	{
-		//public var title:Label = new Label();
 		public var startBtn:Button = new Button("开始游戏");
 		public var loadBtn:Button = new Button("继续游戏");
 		
@@ -53,24 +53,21 @@ package me.rainssong.RainAvgEngine.view
 			
 			startBtn.addEventListener(MouseEvent.CLICK, onStartBtn);
 			loadBtn.addEventListener(MouseEvent.CLICK, onLoadBtn);
-			
-			//callLater(resize);
 		}
 		
 		private function onLoadBtn(e:MouseEvent):void 
 		{
 			SoundManager.getInstance().stopSound("assets/MenuBgm.mp3");
-			var pv:PlayView = new PlayView();
-			pv.load();
-			AnimationCore.switchView(this, pv,"move",{delay:0.5});
+			//
+			
+			SingletonManager.eventBus.dispatchEvent(new GameEvent(GameEvent.LOAD));
 		}
 		
 		private function onStartBtn(e:MouseEvent):void 
 		{
 			SoundManager.getInstance().stopSound("assets/MenuBgm.mp3");
-			var pv:PlayView = new PlayView();
-			pv.start();
-			AnimationCore.switchView(this, pv);
+			
+			SingletonManager.eventBus.dispatchEvent(new GameEvent(GameEvent.GAME_START));
 		}
 		
 	}
