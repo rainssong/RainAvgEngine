@@ -62,9 +62,6 @@ package me.rainssong.RainAvgEngine.view
 		private var _isLoading:Boolean = false;
 		private var _isFading:Boolean = false;
 		
-		//public var musicPlayer:SoundPlayer = new SoundPlayer();
-		//public var soundPlayer:SoundPlayer = new SoundPlayer();
-		
 		public function PlayView()
 		{
 			super();
@@ -90,7 +87,6 @@ package me.rainssong.RainAvgEngine.view
 			fadeView.alpha = 0;
 			fadeView.percentWidth = 1;
 			fadeView.percentHeight = 1;
-			//addChild(optionsPanel);
 			dialogText.left = 10;
 			dialogText.right = 10;
 			dialogText.percentHeight = 0.3;
@@ -101,9 +97,6 @@ package me.rainssong.RainAvgEngine.view
 			dialogText.color = RainTheme.WHITE;
 			dialogText.bgSkin = dialogText.addChildAt(RainUI.theme.getSkin("darkBlueRoundFlatSkin"), 0);
 			dialogText.bgSkin.alpha = 0.7;
-			//dialogText.bgSkin = RainUI.theme.getSkin("darkBlueRoundFlatSkin");
-			//dialogText.bgSkin= dialogText.addChildAt(RainUI.theme.getSkin("darkBlueRoundFlatSkin"),0);
-			//dialogText.borderVisible = true;
 			
 			bg.percentWidth = 1;
 			bg.percentHeight = 1;
@@ -119,15 +112,12 @@ package me.rainssong.RainAvgEngine.view
 			//charView.borderVisible = true;
 			
 			nameLable.left = 10;
-			//nameLable.percentBottom = 0.3;
 			nameLable.percentWidth = 0.2;
 			nameLable.percentHeight = 0.08;
 			nameLable.color = RainTheme.WHITE;
 			nameLable.align = Align.CENTER;
 			nameLable.bgSkin = RainUI.getSkin("darkBlueRoundFlatSkin");
 			nameLable.alpha = 0.8;
-			//nameLable.borderVisible = true;
-			//nameLable.redraw();
 			
 			optionsPanel.centerX = 0;
 			optionsPanel.percentCenterY = -0.15;
@@ -162,7 +152,6 @@ package me.rainssong.RainAvgEngine.view
 			saveTipLabel.color = RainTheme.WHITE;
 			saveTipLabel.bgSkin = RainUI.theme.getSkin("darkBlueRoundFlatSkin")
 			
-			Singleton.scriptManager.scriptDic["assets/Main.xml"] = SingletonManager.bulkLoader.getXML("assets/Main.xml");
 			fadeView.addEventListener("fadeComplete", onFadeComplete);
 			
 			bg.addEventListener(MouseEvent.CLICK, onNext);
@@ -229,16 +218,6 @@ package me.rainssong.RainAvgEngine.view
 			pauseMenuView.disabled = false;
 		}
 		
-		private function onLoadBtn(e:MouseEvent):void
-		{
-			load();
-		}
-		
-		private function onSaveBtn(e:MouseEvent):void
-		{
-			save();
-		}
-		
 		private function onFadeComplete(e:Event):void
 		{
 			_isFading = false;
@@ -273,13 +252,8 @@ package me.rainssong.RainAvgEngine.view
 			}
 		}
 		
-		override protected function initialize():void
-		{
-			super.initialize();
-		}
-		
 		////////////
-		//剧情
+		//story
 		////////////
 		
 		public function talk(charName:String = "", content:String = "", clickNext:Boolean = true):void
@@ -321,7 +295,7 @@ package me.rainssong.RainAvgEngine.view
 		}
 		
 		/////////
-		//功能
+		//functions
 		/////////
 		public function gameOver():void
 		{
@@ -329,9 +303,10 @@ package me.rainssong.RainAvgEngine.view
 			SingletonManager.eventBus.dispatchEvent(new GameEvent(GameEvent.GAME_OVER));
 		}
 		
-		public function start():void
+		public function start(script:String="assets/Main.xml"):void
 		{
-			Singleton.scriptManager.runScript(0, "assets/Main.xml");
+			Singleton.scriptManager.scriptDic[script] = SingletonManager.bulkLoader.getXML(script);
+			Singleton.scriptManager.runScript(0, script);
 		}
 		
 		public function save():void
@@ -345,7 +320,9 @@ package me.rainssong.RainAvgEngine.view
 			SingletonManager.sharedObject.flush();
 			
 			TweenLite.to(saveTipLabel, 0.5, {alpha: 1});
-			TweenLite.to(saveTipLabel, 0.5, {alpha: 0, delay: 1});
+			TweenLite.to(saveTipLabel, 0.5, { alpha: 0, delay: 1 } );
+			
+			SingletonManager.eventBus.dispatchEvent(new GameEvent(GameEvent.SAVE_COMPLETE, null));
 		}
 		
 		public function load():void
@@ -389,11 +366,11 @@ package me.rainssong.RainAvgEngine.view
 			
 			Singleton.scriptManager.runScript(count, xmlName);
 			
-			dispatchEvent(new GameEvent(GameEvent.LOAD, null, true));
+			SingletonManager.eventBus.dispatchEvent(new GameEvent(GameEvent.LOAD_COMPLETE, null, true));
 		}
 		
 		////////////
-		//逻辑
+		//logic
 		////////////
 		public function getValue(key:String):*
 		{
@@ -406,7 +383,7 @@ package me.rainssong.RainAvgEngine.view
 		}
 		
 		////////////
-		//视觉
+		//visual
 		////////////
 		
 		public function changeBg(name:String = ""):void
@@ -450,7 +427,7 @@ package me.rainssong.RainAvgEngine.view
 		}
 		
 		////////////
-		//声音
+		//sound
 		////////////
 		
 		public function playMusic(url:String = "", volume:Number = 1, startTime:Number = 0):void

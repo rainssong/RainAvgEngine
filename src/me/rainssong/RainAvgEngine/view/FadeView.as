@@ -8,7 +8,6 @@ package me.rainssong.RainAvgEngine.view
 	import me.rainssong.RainAvgEngine.manager.Singleton;
 	import me.rainui.components.Container;
 	
-	
 	/**
 	 * @date 2015/3/2 23:11
 	 * @author Rainssong

@@ -26,16 +26,7 @@ package me.rainssong.RainAvgEngine.manager
 			
 			_timer.addEventListener(TimerEvent.TIMER, onTimer);
 			
-			//reset(vars);
-			
-			//tf.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-			
 		}
-		
-		//private function onEnterFrame(e:Event):void 
-		//{
-			//powerTrace(_textArr);
-		//}
 		
 		private function onTimer(e:TimerEvent):void
 		{
@@ -54,16 +45,13 @@ package me.rainssong.RainAvgEngine.manager
 		
 		public function get isFinished():Boolean
 		{
-			//powerTrace("isFinished:" + tf.text +"=="+ _textArr.join(""));
-			//powerTrace( tf.text );
-			//powerTrace( _targetText );
-			//powerTrace( tf.text==_targetText );
-			//powerTrace( _textArr.join(""));
+			var text:String=tf.text.replace(/\n/g,"\r")
+			//powerTrace("_targetText:" + _targetText);
+			//powerTrace( "tf.text：" + text );
+			//powerTrace( "==:" + text == _targetText);
 			
-			return tf.text == _targetText;
+			return text == _targetText;
 		}
-		
-		
 		
 		public function set textArr(value:Array):void 
 		{
@@ -76,6 +64,11 @@ package me.rainssong.RainAvgEngine.manager
 			vars = vars || {};
 			interval = vars["interval"] || 20;
 			
+			//if (vars["htmlText"] != null)
+			//{
+				//_targetText = vars["htmlText"];
+				//_textArr = [String(vars["htmlText"])];
+			//}
 			if (vars["text"] != null)
 			{
 				_targetText = vars["text"];
