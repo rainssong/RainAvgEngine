@@ -95,7 +95,7 @@ package me.rainssong.RainAvgEngine.view
 			dialogText.selectable = false;
 			dialogText.type = TextFieldType.DYNAMIC;
 			dialogText.color = RainTheme.WHITE;
-			dialogText.bgSkin = dialogText.addChildAt(RainUI.theme.getSkin("darkBlueRoundFlatSkin"), 0);
+			dialogText.bgSkin = RainUI.getSkin("darkBlueRoundFlatSkin");
 			dialogText.bgSkin.alpha = 0.7;
 			
 			bg.percentWidth = 1;
