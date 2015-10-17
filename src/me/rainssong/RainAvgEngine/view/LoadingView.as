@@ -18,7 +18,6 @@ package me.rainssong.RainAvgEngine.view
 		public function LoadingView() 
 		{
 			super();
-			
 		}
 		
 		override protected function createChildren():void 

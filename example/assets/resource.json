@@ -1,0 +1,14 @@
+{
+"resources":
+	[
+		{"name":"event01Img","type":"image","url":"assets/Background/event01.jpg"},
+		{"name":"menuBgImg","type":"image","url":"assets/Background/MenuBg.jpg"},
+		{"name":"scene01Img","type":"image","url":"assets/Background/scene01.jpg"},
+		{"name":"mainXml","type":"xml","url":"assets/Scripts/Main.xml"},
+		{"name":"menuXml","type":"xml","url":"assets/Scripts/Menu.xml"},
+		{"name":"menuBgm","type":"xml","url":"assets/BGM/MenuBgm.mp3"},
+		{"name":"gameBgm","type":"xml","url":"assets/BGM/GameBgm.mp3"},
+		{"name":"pic01","type":"image","url":"assets/Pic/pic01.png"},
+		{"name":"char01","type":"image","url":"assets/Half/char01.png"}
+	]
+}

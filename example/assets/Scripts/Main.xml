@@ -2,8 +2,8 @@
 <data>
 	<motion>
 		talk("","感谢你浏览RainAvgEngine！");
-		changeBg("assets/Background/scene01.jpg");
-		playMusic("assets/BGM/music01.mp3");
+		changeBg("scene01Img");
+		playMusic("assets/BGM/GameBgm.mp3");
 	</motion>
 	<motion>talk("?","RainAvgEngine是由rainssong制作的一个开源简易跨平台AVG引擎。你可以用它来制作手机或PC游戏。也可以用于学习之用。");</motion>
 	<motion>talk("?","到这里玩我的其他游戏:rainsgameworld.sinaapp.com\r到这里围观蛇精病作者:weibo.com/rainssong");</motion>

@@ -28,6 +28,7 @@ package me.rainssong.RainAvgEngine.view
 	import me.rainui.components.Page;
 	import me.rainui.components.TextArea;
 	import me.rainui.events.RainUIEvent;
+	import me.rainui.managers.PopUpManager;
 	import me.rainui.RainTheme;
 	import me.rainui.RainUI;
 	import r1.deval.D;
@@ -80,7 +81,8 @@ package me.rainssong.RainAvgEngine.view
 			addChild(pauseBtn);
 			addChild(saveTipLabel);
 			addChild(optionsPanel);
-			addChild(pauseMenuView);
+			//addChild(pauseMenuView);
+			pauseMenuView.destroyOnRemove = false;
 			
 			shakeManager.target = this;
 			
@@ -140,7 +142,7 @@ package me.rainssong.RainAvgEngine.view
 			pauseBtn.text = "菜单";
 			pauseBtn.addEventListener(MouseEvent.CLICK, onPauseBtn);
 			
-			pauseMenuView.visible = false;
+			//pauseMenuView.visible = false;
 			pauseMenuView.addEventListener(RainUIEvent.SELECT, onPauseMenuView);
 			
 			saveTipLabel.width = RainUI.stageHeight * 0.16 + 10;
@@ -178,6 +180,12 @@ package me.rainssong.RainAvgEngine.view
 			D.importFunction("gameOver", gameOver);
 		}
 		
+		public function reset():void
+		{
+			hidePauseMenu();
+			hideOptions();
+		}
+		
 		private function onPauseMenuView(e:GameEvent):void
 		{
 			switch (e.data.text)
@@ -208,14 +216,15 @@ package me.rainssong.RainAvgEngine.view
 		
 		public function hidePauseMenu():void
 		{
-			pauseMenuView.visible = false;
-			pauseMenuView.disabled = true;
+			pauseMenuView.remove();
 		}
 		
 		public function showPauseMenu():void
 		{
-			pauseMenuView.visible = true;
-			pauseMenuView.disabled = false;
+			//pauseMenuView.visible = true;
+			//pauseMenuView.disabled = false;
+			
+			PopUpManager.addPopUp(pauseMenuView);
 		}
 		
 		private function onFadeComplete(e:Event):void
@@ -262,6 +271,8 @@ package me.rainssong.RainAvgEngine.view
 			_statusData["talkContent"] = content;
 			_statusData["talkClickNext"] = clickNext;
 			_statusData["talkVisible"] = true;
+			dialogText.text = "";
+			dialogText.redraw();
 			dialogText.visible = true;
 			nameLable.visible = charName.length > 0;
 			if( charName.length > 0)
@@ -303,9 +314,8 @@ package me.rainssong.RainAvgEngine.view
 			SingletonManager.eventBus.dispatchEvent(new GameEvent(GameEvent.GAME_OVER));
 		}
 		
-		public function start(script:String="assets/Main.xml"):void
+		public function start(script:String="assets/Script/Main.xml"):void
 		{
-			Singleton.scriptManager.scriptDic[script] = SingletonManager.bulkLoader.getXML(script);
 			Singleton.scriptManager.runScript(0, script);
 		}
 		
@@ -329,6 +339,7 @@ package me.rainssong.RainAvgEngine.view
 		{
 			if (SingletonManager.sharedObject.data.count == null)
 			{
+				reset();
 				start();
 				return;
 			}

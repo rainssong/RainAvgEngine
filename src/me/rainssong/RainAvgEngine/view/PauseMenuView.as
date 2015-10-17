@@ -17,9 +17,9 @@ package me.rainssong.RainAvgEngine.view
 	 * @homepage http://rainsgameworld.sinaapp.com
 	 * @weibo http://www.weibo.com/rainssong
 	 */
-	public class PauseMenuView extends Page 
+	public class PauseMenuView extends OptionsPanel 
 	{
-		public var optionsPanel:OptionsPanel = new OptionsPanel();
+		
 		public function PauseMenuView() 
 		{
 			super();
@@ -29,22 +29,19 @@ package me.rainssong.RainAvgEngine.view
 		{
 			super.createChildren();
 			
-			addChild(optionsPanel);
-			optionsPanel.centerX = 0;
-			optionsPanel.percentCenterY = -0.15;
-			optionsPanel.percentHeight = 0.4;
-			optionsPanel.percentWidth = 0.6;
-			optionsPanel.addEventListener(RainUIEvent.SELECT, onSelect);
-			optionsPanel.showOptions(["继续", "保存", "读取", "退出"]);
+			//addChild(optionsPanel);
+			this.centerX = 0;
+			this.percentCenterY = -0.15;
+			this.percentHeight = 0.4;
+			this.percentWidth = 0.6;
+			this.showOptions(["继续", "保存", "读取", "退出"]);
 			
-			bgSkin = new Bitmap(new BitmapData(100, 100, false, 0));
-			bgSkin.alpha = 0.4;
 		}
 		
 		private function onSelect(e:GameEvent):void 
 		{
 			dispatchEvent(e);
-			addChild(optionsPanel);
+			//addChild(optionsPanel);
 		}
 		
 	}

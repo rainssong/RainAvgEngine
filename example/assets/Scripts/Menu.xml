@@ -1,0 +1,24 @@
+<?xmlversion="1.0"encoding="utf-8"?>
+<data>
+	<motion>
+		showOptions(["开始游戏","读取进度","关于"]);
+	</motion>
+	<motion>runScript(lastSelect);</motion>
+	<motion key="开始游戏">talk("美沙","现在进入第一分支。");</motion>
+	<motion>runScript(0,"Main.xml");</motion>
+	<motion key="读取进度">talk("美沙","现在进入第二分支。");</motion>
+	<motion>runScript("分支结束");</motion>
+	<motion key="关于">talk("美沙","现在进入第三分支。");</motion>
+	<motion>runScript("分支结束");</motion>
+	<motion key="分支结束">talk("美沙","还有震屏~");startShake();</motion>
+	<motion>talk("美沙","然后淡入淡出。");</motion>
+	<motion>fadeOut();</motion>
+	<motion>fadeIn();hideChar();hideTalk();changeBg("assets/Background/event01.jpg");</motion>
+	<motion>talk("美沙","右上角是游戏菜单,可以存取档案，试试吧。");</motion>
+	<motion>talk("美沙","引擎提供了变量操作，比如setValue(\"love\",10)，那么执行getValue(\"love\")就会得到10。");</motion>
+	<motion>talk("美沙","另外可以显示图片哦。");showPic("assets/Pic/pic01.png");</motion>
+	<motion>talk("美沙","入口脚本在assets/Main.xml，大家可以自行参考。");</motion>
+	<motion>talk("美沙","本演示素材来自《同级生2》。");</motion>
+	<motion>talk("美沙","就酱啦，bye。");</motion>
+	<motion>gameOver();</motion>
+</data>

@@ -10,7 +10,10 @@ package  me.rainssong.RainAvgEngine
 	import me.rainssong.filesystem.FileCore;
 	import me.rainssong.manager.KeyboardManager;
 	import me.rainssong.manager.SingletonManager;
+	import me.rainssong.RainAvgEngine.events.AssetManagerEvent;
+	import me.rainssong.RainAvgEngine.events.RainAVGEngineEvent;
 	import me.rainssong.RainAvgEngine.manager.AssetManager;
+	import me.rainssong.RainAvgEngine.manager.Singleton;
 	import me.rainssong.RainAvgEngine.view.LoadingView;
 	import me.rainssong.RainAvgEngine.view.HomeView;
 	import me.rainssong.RainAvgEngine.view.PlayView;
@@ -51,8 +54,8 @@ package  me.rainssong.RainAvgEngine
 		{
 			super.initialize();
 			assetManager = new AssetManager();
-			assetManager.addEventListener(BulkProgressEvent.COMPLETE, onLoadComplete)
-			assetManager.startLoad();
+			assetManager.addEventListener(AssetManagerEvent.RESOURCE_COMPLETE, onLoadComplete)
+			assetManager.loadConfigFile("assets/resource.json");
 			
 			SingletonManager.eventBus.addEventListener(GameEvent.GAME_START, onHomeStart);
 			SingletonManager.eventBus.addEventListener(GameEvent.LOAD, onHomeLoad);
@@ -62,6 +65,7 @@ package  me.rainssong.RainAvgEngine
 		private function onGameOver(e:GameEvent):void 
 		{
 			AnimationCore.switchView(playView, homeView = new HomeView(), "move", { direction:"down" } );
+			dispatchEvent(new RainAVGEngineEvent(RainAVGEngineEvent.SHOW_MENU));
 		}
 		
 		private function onHomeLoad(e:GameEvent):void 
@@ -78,11 +82,17 @@ package  me.rainssong.RainAvgEngine
 			AnimationCore.switchView(homeView, playView);
 		}
 		
-		private function onLoadComplete(e:BulkProgressEvent):void 
+		private function onLoadComplete(e:AssetManagerEvent):void 
 		{
+			Singleton.scriptManager.scriptDic["assets/Script/Menu.xml"] = assetManager.getXML("assets/Script/Menu.xml");
+			//Singleton.scriptManager.scriptDic["assets/Script/Main.xml"] = assetManager.getXML("assets/Script/Main.xml");
+			Singleton.scriptManager.scriptDic["assets/Script/Main.xml"] = assetManager.getXML("mainXml");
+			
 			AnimationCore.switchView(loadingView, homeView = new HomeView(), "move", { direction:"up" } );
 			loadingView.destroy();
 			loadingView = null;
+			
+			dispatchEvent(new RainAVGEngineEvent(RainAVGEngineEvent.SHOW_MENU));
 		}
 	}
 	

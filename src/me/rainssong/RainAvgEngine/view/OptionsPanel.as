@@ -35,13 +35,15 @@ package me.rainssong.RainAvgEngine.view
 			{
 				var btn:Button = new Button();
 				btns.push(btn);
-				//addChild(btns);
+				addChild(btn);
+				btn.visible = false;
 				
 				btn.addEventListener(MouseEvent.CLICK, onClick);
 				btn.percentWidth = 1;
 				btn.height = RainUI.stageHeight * 0.08;
-				btn.y = i * btn.height + 10*(i-1);
+				btn.y = i * btn.height + 10 * i;
 			}
+			
 			super.createChildren();
 		}
 		
@@ -60,11 +62,11 @@ package me.rainssong.RainAvgEngine.view
 				if (i < arr.length)
 				{
 					btns[i].text = arr[i];
-					addChild(btns[i]);
+					btns[i].visible = true;
 				}
 				else
 				{
-					btns[i].remove();
+					btns[i].visible = false;
 				}
 			}
 		}
