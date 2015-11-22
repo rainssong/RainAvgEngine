@@ -22,6 +22,7 @@ And only 4 lines of code:
 
 Showcase：
 
+	Chinese funny AVG —— BlueDragonEscape
 	iOS：https://appsto.re/cn/YvWO6.i
 	Android：http://www.wandoujia.com/apps/air.com.rainssong.BlueDragonEscape
 	Web：http://rainsgameworld.sinaapp.com/game/runaway.php
