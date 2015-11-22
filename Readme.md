@@ -5,7 +5,7 @@ A simple, cross-platform AVG engine。
 
 Relative libs：
 D.eval,RainUI,RainsAsLib
-[Download](https://github.com/rainssong/RainsAsLib)
+[Download Here](https://github.com/rainssong/RainsAsLib)
 
     
 Useage:
@@ -19,3 +19,9 @@ And only 4 lines of code:
 	stage.scaleMode = StageScaleMode.NO_SCALE;
 	RainUI.init(stage,new RainTheme);
 	stage.addChild(new GameView);
+
+Showcase：
+
+	iOS：https://appsto.re/cn/YvWO6.i
+	Android：http://www.wandoujia.com/apps/air.com.rainssong.BlueDragonEscape
+	Web：http://rainsgameworld.sinaapp.com/game/runaway.php

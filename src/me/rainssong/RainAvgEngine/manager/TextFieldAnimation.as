@@ -64,12 +64,12 @@ package me.rainssong.RainAvgEngine.manager
 			vars = vars || {};
 			interval = vars["interval"] || 20;
 			
-			//if (vars["htmlText"] != null)
-			//{
-				//_targetText = vars["htmlText"];
-				//_textArr = [String(vars["htmlText"])];
-			//}
-			if (vars["text"] != null)
+			if (vars["htmlText"] != null)
+			{
+				_targetText = vars["htmlText"];
+				_textArr = String(vars["htmlText"]).split("");
+			}
+			else if (vars["text"] != null)
 			{
 				_targetText = vars["text"];
 				_textArr = vars["text"].split("");

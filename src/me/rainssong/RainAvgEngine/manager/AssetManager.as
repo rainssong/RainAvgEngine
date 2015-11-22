@@ -96,10 +96,8 @@ package me.rainssong.RainAvgEngine.manager
 			for (var i:int = 0; i < resources.length; i++) 
 			{
 				var res:Object = resources[i];
-				if (StringCore.getExtension(res.url) == "mp3")
-					SoundManager.getInstance().addExternalSound(res.url, res.url);
-				else
-					SingletonManager.bulkLoader.add(res.url, { id:res.name } );
+				
+				SingletonManager.bulkLoader.add(res.url, { id:res.name } );
 			}
 			SingletonManager.bulkLoader.addEventListener(BulkProgressEvent.PROGRESS, onProgress);
 			SingletonManager.bulkLoader.addEventListener(BulkProgressEvent.COMPLETE, onComplete);

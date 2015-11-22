@@ -154,7 +154,7 @@ package me.rainssong.RainAvgEngine.view
 			saveTipLabel.color = RainTheme.WHITE;
 			saveTipLabel.bgSkin = RainUI.theme.getSkin("darkBlueRoundFlatSkin")
 			
-			fadeView.addEventListener("fadeComplete", onFadeComplete);
+			//fadeView.addEventListener("fadeComplete", onFadeComplete);
 			
 			bg.addEventListener(MouseEvent.CLICK, onNext);
 			dialogText.addEventListener(MouseEvent.CLICK, onNext);
@@ -227,7 +227,7 @@ package me.rainssong.RainAvgEngine.view
 			PopUpManager.addPopUp(pauseMenuView);
 		}
 		
-		private function onFadeComplete(e:Event):void
+		private function onFadeComplete(e:Event=null):void
 		{
 			_isFading = false;
 			if (_isLoading)
@@ -491,23 +491,18 @@ package me.rainssong.RainAvgEngine.view
 		
 		public function fadeIn(duration:Number = 0.5):void
 		{
-			addChild(fadeView);
-			_isFading = true;
-			fadeView.fadein(duration);
+			AnimationCore.fadeFromBlack(this, duration, { onComplete:onFadeComplete } );
 		}
 		
 		public function fadeOut(duration:Number = 0.5):void
 		{
-			addChild(fadeView);
-			_isFading = true;
-			fadeView.fadeout(duration);
+			AnimationCore.fadeToBlack(this, duration, { onComplete:onFadeComplete } );
 		}
 		
 		public function fadeOutIn(duration:Number = 1):void
 		{
-			addChild(fadeView);
-			_isFading = true;
-			fadeView.fadeoutin(duration);
+			AnimationCore.fadeToBlack(this, duration*0.5 );
+			AnimationCore.fadeFromBlack(this, duration*0.5, {delay:duration, onComplete:onFadeComplete } );
 		}
 		
 		/* DELEGATE me.rainssong.RainAvgEngine.utils.ShakeManager */
