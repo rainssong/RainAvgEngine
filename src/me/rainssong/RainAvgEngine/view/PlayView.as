@@ -89,11 +89,13 @@ package me.rainssong.RainAvgEngine.view
 			fadeView.alpha = 0;
 			fadeView.percentWidth = 1;
 			fadeView.percentHeight = 1;
+			
 			dialogText.left = 10;
 			dialogText.right = 10;
 			dialogText.percentHeight = 0.3;
 			dialogText.bottom = 10;
 			dialogText.text = "文字测试\n文字测试";
+			dialogText.align = Align.TOP_LEFT;
 			dialogText.selectable = false;
 			dialogText.type = TextFieldType.DYNAMIC;
 			dialogText.color = RainTheme.WHITE;

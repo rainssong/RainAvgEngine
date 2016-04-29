@@ -18,6 +18,7 @@ package me.rainssong.RainAvgEngine.manager
 		private var _textArr:Array = [];
 		private var _targetText:String;
 		public var tf:Label;
+		private var _finished:Boolean = false;
 		
 		public function TextFieldAnimation(tf:Label)
 		{
@@ -41,16 +42,18 @@ package me.rainssong.RainAvgEngine.manager
 			tf.text = _targetText;
 			//textArr.length = 0;
 			_timer.stop();
+			//_finished = true;
 		}
 		
 		public function get isFinished():Boolean
 		{
 			var text:String=tf.text.replace(/\n/g,"\r")
+			var text2:String=_targetText.replace(/\n/g,"\r")
 			//powerTrace("_targetText:" + _targetText);
 			//powerTrace( "tf.text：" + text );
 			//powerTrace( "==:" + text == _targetText);
 			
-			return text == _targetText;
+			return text == text2;
 		}
 		
 		public function set textArr(value:Array):void 

@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.utils.setTimeout;
 	import me.rainssong.RainAvgEngine.GameView;
 	import me.rainui.RainTheme;
 	import me.rainui.RainUI;
@@ -21,8 +22,12 @@ package
 		{
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
-			
-			RainUI.init(stage,new RainTheme);
+			setTimeout(init, 200);
+		}
+		
+		private function init():void 
+		{
+			RainUI.init(stage,new RainTheme("none"));
 			stage.addChild(new GameView);
 		}
 		

@@ -4,6 +4,7 @@ package me.rainssong.RainAvgEngine.view
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import me.rainssong.RainAvgEngine.manager.AssetManager;
 	import me.rainssong.application.AirManager;
 	import me.rainssong.events.GameEvent;
 	import me.rainssong.manager.ScriptManager;
@@ -59,6 +60,8 @@ package me.rainssong.RainAvgEngine.view
 			//optionsPanel.addEventListener(Event.SELECT, onSelect);
 			
 			bgSkin = new DisplayResizer(SingletonManager.bulkLoader.getBitmap("assets/Background/MenuBg.jpg"));
+			
+			
 			SoundManager.getInstance().playSound("assets/BGM/MenuBgm.mp3",1,0,9999);
 			DisplayResizer(bgSkin).contentScaleMode = ScaleMode.FULL_FILL;
 			

@@ -1,0 +1,6 @@
+Design
+用MenuXml控制首页
+用MainXml控制剧情
+AssetManager用单例
+
+2016-03-01 暂时跟上RainUI的更新

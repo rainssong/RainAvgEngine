@@ -3,9 +3,11 @@ package  me.rainssong.RainAvgEngine
 	//import flash.desktop.NativeApplication;
 	import br.com.stimuli.loading.BulkLoader;
 	import br.com.stimuli.loading.BulkProgressEvent;
+	import br.com.stimuli.loading.loadingtypes.SoundItem;
 	import com.reintroducing.sound.SoundManager;
 	import flash.events.Event;
 	import flash.filesystem.File;
+	import flash.media.Sound;
 	import me.rainssong.events.GameEvent;
 	import me.rainssong.filesystem.FileCore;
 	import me.rainssong.manager.KeyboardManager;
@@ -87,6 +89,13 @@ package  me.rainssong.RainAvgEngine
 			Singleton.scriptManager.scriptDic["assets/Script/Menu.xml"] = assetManager.getXML("assets/Script/Menu.xml");
 			//Singleton.scriptManager.scriptDic["assets/Script/Main.xml"] = assetManager.getXML("assets/Script/Main.xml");
 			Singleton.scriptManager.scriptDic["assets/Script/Main.xml"] = assetManager.getXML("mainXml");
+			
+			for (var name:String in SingletonManager.bulkLoader.contents) 
+			{
+				if (SingletonManager.bulkLoader.contents[name] is Sound);
+					SoundManager.getInstance().addSound(SingletonManager.bulkLoader.contents[name] as Sound , name);
+			}
+			
 			
 			AnimationCore.switchView(loadingView, homeView = new HomeView(), "move", { direction:"up" } );
 			loadingView.destroy();
